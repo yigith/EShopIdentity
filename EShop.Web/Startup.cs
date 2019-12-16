@@ -17,6 +17,8 @@ using EShop.Infrastructure.Data;
 using EShop.ApplicationCore.Interfaces;
 using EShop.ApplicationCore.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using EShop.Web.Interfaces;
+using EShop.Web.Services;
 
 namespace EShop.Web
 {
@@ -44,10 +46,11 @@ namespace EShop.Web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IHomeIndexViewModelService, HomeIndexViewModelService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

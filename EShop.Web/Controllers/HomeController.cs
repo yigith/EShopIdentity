@@ -7,20 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 using EShop.Web.Models;
 using EShop.ApplicationCore.Interfaces;
 using EShop.ApplicationCore.Entities;
+using EShop.Web.Interfaces;
 
 namespace EShop.Web.Controllers
 {
     public class HomeController : Controller
     {
-        ICategoryService _categoryService;
-        public HomeController(ICategoryService categoryService)
+        IHomeIndexViewModelService _homeIndexViewModelService;
+        public HomeController(IHomeIndexViewModelService homeIndexViewModelService)
         {
-            _categoryService = categoryService;
+            _homeIndexViewModelService = homeIndexViewModelService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? cid, int? pid)
         {
-            return View(_categoryService.ListCategories());
+            return View(_homeIndexViewModelService.GetHomeIndexViewModel(pid ?? 1, 12, cid));
         }
 
         public IActionResult Privacy()

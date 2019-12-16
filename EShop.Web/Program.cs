@@ -16,7 +16,7 @@ namespace EShop.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
 
@@ -26,7 +26,7 @@ namespace EShop.Web
                 var dbContext = services.GetRequiredService<ApplicationDbContext>();
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                ApplicationDbContextSeed.Seed(dbContext, userManager, roleManager);
+                await ApplicationDbContextSeed.Seed(dbContext, userManager, roleManager);
             }
 
             host.Run();

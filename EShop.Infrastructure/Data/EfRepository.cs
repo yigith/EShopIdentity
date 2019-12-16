@@ -27,6 +27,7 @@ namespace EShop.Infrastructure.Data
         public void Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public IQueryable<T> GetAll()
